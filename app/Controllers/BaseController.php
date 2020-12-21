@@ -40,7 +40,16 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.:
-		// $this->session = \Config\Services::session();
+        // $this->session = \Config\Services::session();
+        $appPaths = new \Config\Paths();
+        $appViewPaths = $appPaths->viewDirectory;
+
+        $loader = new \Twig\Loader\FilesystemLoader($appViewPaths);
+
+        $this->twig = new \Twig\Environment($loader, [
+            'cache' => WRITEPATH.'/cache/twig',
+        ]);
+
 	}
 
 }

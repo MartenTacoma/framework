@@ -13,3 +13,22 @@
  *
  * @link: https://codeigniter4.github.io/CodeIgniter4/
  */
+if (!function_exists('view')) {
+    function view($tpl, $data = []) {
+
+       $appPaths = new \Config\Paths();
+        $appViewPaths = $appPaths->viewDirectory;
+
+        $loader = new \Twig\Loader\FilesystemLoader($appViewPaths);
+
+        $twig = new \Twig\Environment($loader, [
+            'cache' => WRITEPATH.'/cache/twig',
+        ]);
+        
+        if(strpos($tpl, '.') === false){
+            $tpl .= '.twig';
+        }
+
+        return $twig->render($tpl, $data);
+    }
+}
